@@ -73,7 +73,10 @@ def transformation():
     print('Invoked with {} records'.format(data.shape[0]))
 
     # Do the prediction
-    predictions = ScoringService.predict(data)
+    # predictions = ScoringService.predict(data)  # Model predictions
+    predictions = np.where(data.iloc[:,0] > 7, 'a',
+                           np.where((data.iloc[:,0] <= 7) & (data.iloc[:,1] <= 3), 'b',
+                                    'c'))  # Simple rule predictions
 
     # Convert from numpy back to CSV
     out = StringIO.StringIO()
